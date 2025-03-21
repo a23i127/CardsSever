@@ -1,0 +1,1 @@
+.package(url: "https://github.com/vapor/fluent-postgres-driver.git", .upToNextMajor(from: "2.10.0")),

@@ -1,29 +1,34 @@
+//
+//  File.swift
+//  cardData
+//
+//  Created by 高橋沙久哉 on 2025/01/14.
+//
+import Foundation
 import Fluent
-import struct Foundation.UUID
-
-/// Property wrappers interact poorly with `Sendable` checking, causing a warning for the `@ID` property
-/// It is recommended you write your model with sendability checking on and then suppress the warning
-/// afterwards with `@unchecked Sendable`.
-final class Todo: Model, @unchecked Sendable {
-    static let schema = "todos"
-    
-    @ID(key: .id)
-    var id: UUID?
-
-    @Field(key: "title")
-    var title: String
-
-    init() { }
-
-    init(id: UUID? = nil, title: String) {
+import Vapor
+final class CardModels: Model,Content {
+    static let schema = "cardData"
+    @ID var id: UUID?
+    @Field(key: "名前") var name: String
+    @Field(key: "属性") var attribute: String
+    @Field(key: "レベル") var lebel: String
+    @Field(key: "種族") var race: String
+    @Field(key: "imageUrl") var imageUrl: String
+    @Field(key: "正式名称") var trueName: String
+    @Field(key: "特徴") var description: String   //チューナー/効果　など（モンスターの詳細）
+    @Field(key: "カテゴリ") var searchTag: String  //カードをカテゴリーで管理できるようにする
+    init() {}
+    init(id:UUID? = nil,name:String,attribute: String,lebel: String,race: String,imageUrl: String,trueName: String,description:String,searchTag:String) {
         self.id = id
-        self.title = title
+        self.name = name
+        self.attribute = attribute
+        self.lebel = lebel
+        self.race = race
+        self.imageUrl = imageUrl
+        self.trueName = trueName
+        self.description = description
+        self.searchTag = searchTag
     }
     
-    func toDTO() -> TodoDTO {
-        .init(
-            id: self.id,
-            title: self.$title.value
-        )
-    }
 }

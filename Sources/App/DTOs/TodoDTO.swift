@@ -5,13 +5,11 @@ struct TodoDTO: Content {
     var id: UUID?
     var title: String?
     
-    func toModel() -> Todo {
-        let model = Todo()
+    func toModel() -> CardModels {
+        let model = CardModels()
         
         model.id = self.id
-        if let title = self.title {
-            model.title = title
-        }
+        
         return model
     }
 }
